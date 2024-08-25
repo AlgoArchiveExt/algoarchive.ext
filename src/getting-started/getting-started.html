@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Getting Started - AlgoArchive</title>
+    <link rel="stylesheet" href="getting-started.css" />
+    <link rel="shotcut icon" href="algo-archive.png" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Getting Started with AlgoArchive</h1>
+      <p>Welcome to the AlgoArchive extension! Choose an option below to get started:</p>
+      <div class="repo-options">
+        <button id="select-repo-btn">Select from Repositories</button>
+        <button id="create-repo-btn">Create Private Repository</button>
+      </div>
+      <div id="repo-selection" class="hidden">
+        <label for="repo-select">Select Repository:</label>
+        <select id="repo-select">
+          <option value="">--Select a repository--</option>
+          <!-- Options will be populated here -->
+        </select>
+        <button id="use-repo-btn" class="hidden">Use Repository</button>
+      </div>
+      <div id="create-repo" class="hidden">
+        <label for="new-repo-name">New Repository Name:</label>
+        <input type="text" id="new-repo-name" placeholder="Enter repository name" />
+        <button id="create-use-repo-btn" class="hidden">Create and Use Repository</button>
+      </div>
+      <p>If you need any help, refer to our documentation or contact support.</p>
+    </div>
+    <script src="getting-started.js"></script>
+  </body>
+</html>
