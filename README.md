@@ -133,5 +133,4 @@ For more detailed information on commit message conventions, please refer to [Co
 
 ##### File Naming Conventions
 
-- Use `kebab-case` for pages and styles (e.g., `my-page.html`, `my-style.css`).
-- Use `camelCase` for all other files (e.g., `myComponent.ts`, `myUtilityFunction.ts`).
+- Use `kebab-case` for everything (e.g., `sw-cache.ts`, `welcome-popup.html`).
