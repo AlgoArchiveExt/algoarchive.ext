@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '@/constants';
-import { ApiClientOptions } from '@/types/apiClient';
+import { ApiClientOptions } from '@/types/api-client';
 
 class ApiClient {
   private baseURL: string;
@@ -64,7 +64,11 @@ class ApiClient {
    * const newRepo = await apiClient.post<Repo, Repo>('repos', { name: 'my-repo' });
    * console.log(newRepo);
    */
-  public async post<T = undefined, U = unknown>(endpoint: string, body?: T, options?: RequestInit): Promise<U> {
+  public async post<T = undefined, U = unknown>(
+    endpoint: string,
+    body?: T,
+    options?: RequestInit,
+  ): Promise<U> {
     return this.request<U>(endpoint, {
       method: 'POST',
       headers: {

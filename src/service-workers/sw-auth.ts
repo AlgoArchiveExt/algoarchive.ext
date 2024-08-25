@@ -2,7 +2,11 @@ import { GITHUB_ACCESS_TOKEN_URL, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from 
 import { findLastLeetCodeTab, setInStorage, ApiClient } from '@/utils';
 import { AccessTokenResponse } from '@/types/github';
 
-async function handleTabUpdate(tabId: number, changeInfo: chrome.tabs.TabChangeInfo, tab: chrome.tabs.Tab) {
+async function handleTabUpdate(
+  tabId: number,
+  changeInfo: chrome.tabs.TabChangeInfo,
+  tab: chrome.tabs.Tab,
+) {
   console.log('Tab updated:', tabId, changeInfo, tab);
 
   const apiClient = new ApiClient({ baseUrl: GITHUB_ACCESS_TOKEN_URL });
