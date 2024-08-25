@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello World</title>
+    <script defer src="popup.js"></script>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <div class="header">
+      <img class="logo" src="algo-archive.png" alt="AlgoArchive Logo" height="80px" width="80px">
+      <h3 class="selected-repo" style="display: none;">
+        Using repository: <span id="selected-repo"></span>
+      </h3>
+      <button id="select-repo-button" style="display: none;">Select Repository</button>
+    <div class="container">
+      <div class="problem-details" style="display: none;">
+        <h2 id="problem-name"></h2>
+        <p id="problem-difficulty"></p>
+      </div>
+      <div class="button-container">
+        <button class="auth-button" id="github-signin">GitHub Sign in</button>
+        <button class="auth-button" id="delete-auth" style="display: none;">Delete Auth</button>
+      </div>
+    </div>
+  </body>
+</html>

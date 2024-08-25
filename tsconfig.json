@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
      "strict": true,
+     "baseUrl": "./src",          // This sets the root directory for your imports.
+     "paths": {
+       "@/*": ["*"]               // This maps `@/` to the `src` directory
+     },
      "module": "commonjs",
      "target": "es6",
      "esModuleInterop": true,

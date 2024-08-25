@@ -1,0 +1,110 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 10px;
+  background-color: #eef2f7;
+  color: #ef9920;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 250px;
+}
+
+.logo {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+#select-repo-button {
+  background-color: #ef9920;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.title {
+  text-align: center;
+  color: #4a90e2;
+  margin-right: 10px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.selected-repo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+  gap: 5px; /* Add space between label and repo name */
+}
+
+.selected-repo span#selected-repo {
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-grow: 1; /* Allow the span to take as much space as possible */
+  min-width: 0; /* Prevents the flexbox from forcing the element to expand */
+}
+.problem-details {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#problem-name {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 10px 0;
+  color: #2c3e50;
+}
+
+#problem-difficulty {
+  font-size: 16px;
+  color: #7f8c8d;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  text-align: center;
+}
+
+.auth-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin: 5px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.auth-button button:hover {
+  background-color: #357ab7;
+}
+
+.auth-button button:focus {
+  outline: none;
+}
