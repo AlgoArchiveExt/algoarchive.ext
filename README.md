@@ -9,7 +9,7 @@
 - [Project Structure](#project-structure)
 - [Development](#development)
 - [Commit Message Guidelines \& Conventions](#commit-message-guidelines--conventions)
-    - [File Naming Conventions](#file-naming-conventions)
+  - [File Naming Conventions](#file-naming-conventions)
 
 ### Overview
 **AlgoArchive** is a Chrome extension that automatically grabs the leetcode or hackerrank problem and its solution from the web page and pushes it to github. The extension is designed to help users save and organize their submissions on GitHub, making it easier to track their progress and share their solutions with others.
@@ -28,8 +28,10 @@
 ```sh
 src/
 │
-├── background/
-│   └── background.ts               // Entry point for the extension's background script
+├── service-workers/
+│   ├── sw-interceptor.ts           // Service worker for intercepting leetcode submissions
+|   ├── sw-oauth.ts                 // Oauth service worker for github
+│   └── service-worker.ts           // Entry point for the extension's background service worker, registers all service workers
 │
 ├── content/
 │   └── content.ts                  // Handles communication with the web page content
@@ -45,13 +47,17 @@ src/
 │   └── getting-started.css         // Styling for the 'Getting Started' page
 |
 ├── types/
-│   ├── storage.d.ts                // Type definitions for storage objects
-│   └── github.d.ts                 // Type definitions for GitHub API interactions
+|   ├── index.ts                    // Aggregate type definitions
+│   ├── api-client.ts               // Type definitions for API client interactions
+│   ├── leetcode.ts                 // Type definitions for LeetCode graphql API interactions
+│   ├── storage.ts                  // Type definitions for storage objects
+│   └── github.ts                   // Type definitions for GitHub API interactions
 │
 ├── constants/
 │   └── index.ts                    // Constants used throughout the extension
 │
 └── utils/
+    ├── index.ts                    // Aggregate utility functions
     ├── api.ts                      // Utility functions for making API requests to AlgoArchive API
     ├── storage.ts                  // Utility functions for managing storage
     ├── dom.ts                      // Utility functions for DOM manipulation
@@ -100,7 +106,7 @@ To maintain consistency and clarity in our project’s commit history, please fo
 - **Scope**: Indicates the area or module affected by the commit. For example:
   - `content`
   - `popup`
-  - `background`
+  - `service-worker`
   - `utils`
   
 - **Subject**: A concise description of the changes introduced by the commit.
@@ -116,13 +122,13 @@ To maintain consistency and clarity in our project’s commit history, please fo
 - `feat(content): add message passing functionality`
 - `fix(popup): resolve issue with button alignment`
 - `docs(utils): update README with development instructions`
-- `style(background): format code using Prettier`
+- `style(service-worker): format code using Prettier`
 - `refactor(content): extract helper function for DOM manipulation`
 - `test(utils): add unit tests for storage functions`
 - `chore: update dependencies in package.json`
 - `build: update webpack configuration for production build`
 - `ci: add GitHub Actions workflow for linting`
-- `perf: optimize storage retrieval in background script`
+- `perf: optimize storage retrieval in service worker`
 - `revert: revert previous commit due to incorrect implementation`
 - `merge: merge branch 'feature' into 'main'`
 - `deploy: deploy to production server`
@@ -131,6 +137,6 @@ For more detailed information on commit message conventions, please refer to [Co
 
 **Optional:** You may use emojis to visually represent commit types (e.g., 🚀 for `feat`, 🐛 for `fix`, 📚 for `docs`, etc.).
 
-##### File Naming Conventions
+#### File Naming Conventions
 
 - Use `kebab-case` for everything (e.g., `sw-cache.ts`, `welcome-popup.html`).

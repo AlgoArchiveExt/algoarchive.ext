@@ -1,7 +1,6 @@
 import { ApiClient, getFromStorage, setInStorage, attachListener } from '@/utils';
 import { GITHUB_API_BASE_URL } from '@/constants';
-import { UserSettings } from '@/types/storage';
-import { Repo } from '@/types/github';
+import { UserSettings, Repo } from '@/types';
 
 document.addEventListener('DOMContentLoaded', () => {
   const selectRepoBtn = document.getElementById('select-repo-btn')! as HTMLButtonElement;

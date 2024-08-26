@@ -1,5 +1,5 @@
 import { API_BASE_URL } from '@/constants';
-import { ApiClientOptions } from '@/types/api-client';
+import { ApiClientOptions } from '@/types';
 
 class ApiClient {
   private baseURL: string;

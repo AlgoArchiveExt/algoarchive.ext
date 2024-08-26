@@ -1,6 +1,6 @@
 import { GITHUB_ACCESS_TOKEN_URL, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '@/constants';
 import { findLastLeetCodeTab, setInStorage, ApiClient } from '@/utils';
-import { AccessTokenResponse } from '@/types/github';
+import { AccessTokenResponse } from '@/types';
 
 async function handleTabUpdate(
   tabId: number,

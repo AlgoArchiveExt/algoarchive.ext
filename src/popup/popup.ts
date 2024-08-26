@@ -1,6 +1,6 @@
 import { GITHUB_OAUTH_URL } from '@/constants';
 import { attachListener, getFromStorage, removeFromStorage } from '@/utils';
-import { UserSettings } from '@/types/storage';
+import { UserSettings } from '@/types';
 
 // Wait for the popup DOM toload
 document.addEventListener('DOMContentLoaded', () => {
@@ -40,16 +40,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // send a message to the content script to get the problem data
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     if (tabs[0] && tabs[0].url && tabs[0].url.startsWith('https://leetcode.com/problems/')) {
-      chrome.tabs.sendMessage(tabs[0].id!, { from: 'popup', subject: 'problemData' }, (response) => {
-        if (chrome.runtime.lastError) {
-          console.log('Error:', chrome.runtime.lastError.message);
-          setInfo(null);
-        } else if (response) {
-          setInfo(response);
-        } else {
-          setInfo(null);
-        }
-      });
+      chrome.tabs.sendMessage(
+        tabs[0].id!,
+        { from: 'popup', subject: 'problemData' },
+        (response) => {
+          if (chrome.runtime.lastError) {
+            console.log('Error:', chrome.runtime.lastError.message);
+            setInfo(null);
+          } else if (response) {
+            setInfo(response);
+          } else {
+            setInfo(null);
+          }
+        },
+      );
     } else {
       setInfo(null);
       console.log('Not on a LeetCode problem page');

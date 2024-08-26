@@ -1,4 +1,4 @@
-// Inform the background script that this tab should have a page-action.
+// Inform the service worker that this tab should have a page-action.
 chrome.runtime.sendMessage(
   {
     from: 'content',
@@ -20,7 +20,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.from === 'popup' && message.subject === 'problemData') {
     try {
       const problemDifficulty =
-        document.querySelector('div > div.flex.w-full > div.flex.gap-1 > div')?.textContent || 'Not found';
+        document.querySelector('div > div.flex.w-full > div.flex.gap-1 > div')?.textContent ||
+        'Not found';
       const problemTitle = document.querySelector('head > title')?.textContent || 'Not found';
 
       sendResponse({ problemTitle, problemDifficulty });
@@ -35,7 +36,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 // Check if we're on a LeetCode problem page
-if (window.location.hostname === 'leetcode.com' && window.location.pathname.startsWith('/problems/')) {
+if (
+  window.location.hostname === 'leetcode.com' &&
+  window.location.pathname.startsWith('/problems/')
+) {
   console.log('LeetCode problem page detected');
 } else {
   console.log('Not a LeetCode problem page');
