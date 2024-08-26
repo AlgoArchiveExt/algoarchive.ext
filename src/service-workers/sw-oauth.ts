@@ -19,7 +19,7 @@ async function handleTabUpdate(
     if (code) {
       console.log('Authorization code found:', code);
       const response = await apiClient.post<undefined, AccessTokenResponse>(
-        `login/oauth/access_token?client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}`,
+        `login/oauth/access_token?client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&code=${code}`,
         undefined,
         {
           headers: {
