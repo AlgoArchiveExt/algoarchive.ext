@@ -1,6 +1,6 @@
+import { LeetCodeSubmission } from '@/types/leetcode';
 import { UserSettings } from '@/types/storage';
 import { getFromStorage } from '@/utils';
-import { LeetCodeSubmission } from '@/types/leetcode';
 
 chrome.webRequest.onBeforeRequest.addListener(
   (details) => {
