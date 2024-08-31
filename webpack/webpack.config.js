@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
+const DotEnv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'production',
@@ -35,6 +36,9 @@ module.exports = {
         { from: 'src/**/*.css', to: '[name][ext]', context: '.' }, // copy all css files
         { from: 'src/**/*.html', to: '[name][ext]', context: '.' }, // copy all html files
       ],
+    }),
+    new DotEnv({
+      prefix: 'import.meta.env.',
     }),
   ],
   watch: true,

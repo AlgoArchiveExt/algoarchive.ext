@@ -5,13 +5,15 @@
      "paths": {
        "@/*": ["*"]               // This maps `@/` to the `src` directory
      },
-     "module": "commonjs",
-     "target": "es6",
+     "module": "ES2022",
+     "moduleResolution": "Node",
+     "target": "ES2022",
      "esModuleInterop": true,
      "sourceMap": true,
      "rootDir": "src",
      "outDir": "dist/js",
      "noEmitOnError": true,
-     "typeRoots": [ "node_modules/@types" ]
-  }
+     "typeRoots": [ "node_modules/@types", "src/types" ]
+    },
+  "include": ["src", "src/types/types.d.ts"]
 }
