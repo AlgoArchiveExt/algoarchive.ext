@@ -64,6 +64,7 @@ body {
   white-space: nowrap;
   flex-grow: 1; /* Allow the span to take as much space as possible */
   min-width: 0; /* Prevents the flexbox from forcing the element to expand */
+  text-align: center;
 }
 .problem-details {
   text-align: center;

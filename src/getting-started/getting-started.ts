@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
         () => {
           alert(`Now using repository: ${selectedRepoName}`);
           // close current tab and open the popup
-          window.close();
           findLastLeetCodeTab().then((leetCodeTab) => {
+            window.close();
             if (leetCodeTab?.id) {
               chrome.tabs.update(leetCodeTab.id, { active: true });
             } else {

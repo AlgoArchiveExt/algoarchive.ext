@@ -102,10 +102,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (result?.selectedRepo) {
       selectRepoButton.style.display = 'none';
       selectedRepoClass.style.display = 'block';
+      selectedRepoClass.style.cursor = 'pointer';
+      selectedRepoClass.addEventListener('click', () => {
+        chrome.tabs.create({ url: 'getting-started.html' });
+      });
       selectedRepo.textContent = result.selectedRepo;
     } else {
       selectRepoButton.style.display = 'block';
-      selectedRepo.textContent = 'None';
+      selectedRepo.style.display = 'none';
     }
   }
 });
