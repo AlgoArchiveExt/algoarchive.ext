@@ -49,12 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     attachListener(useRepoBtn, 'click', () => {
       const selectedRepoName = repoSelect.options[repoSelect.selectedIndex].textContent;
+      const owner = repoSelect.options[repoSelect.selectedIndex].getAttribute('owner');
 
       setInStorage(
         'algoArchive',
         {
           ...result,
           selectedRepo: selectedRepoName,
+          owner: owner,
         },
         () => {
           alert(`Now using repository: ${selectedRepoName}`);
@@ -132,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const option = document.createElement('option');
       option.value = repo.id.toString();
       option.textContent = repo.name;
+      option.setAttribute('owner', repo.owner.login);
       repoSelect.appendChild(option);
     });
   }

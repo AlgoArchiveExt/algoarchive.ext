@@ -6,6 +6,9 @@ export interface Repo {
   name: string;
   full_name: string;
   description: string;
+  owner: {
+    login: string;
+  };
   // Add other relevant fields if needed
 }
 
