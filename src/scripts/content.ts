@@ -1,3 +1,5 @@
+import { getFromStorage, sanitize, setInStorage } from '@/utils';
+
 // Inform the service worker that this tab should have a page-action.
 chrome.runtime.sendMessage(
   {
@@ -17,14 +19,48 @@ chrome.runtime.sendMessage(
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log('(Content Script) Message received:', message);
 
-  if (message.from === 'popup' && message.subject === 'problemData') {
+  if (
+    (message.from === 'popup' || message.from === 'service-worker') &&
+    message.subject === 'problemData'
+  ) {
     try {
       const problemDifficulty =
         document.querySelector('div > div.flex.w-full > div.flex.gap-1 > div')?.textContent ||
         'Not found';
       const problemTitle = document.querySelector('head > title')?.textContent || 'Not found';
 
-      sendResponse({ problemTitle, problemDifficulty });
+      const problemDescription = Array.from(document.querySelectorAll('div')).filter(
+        (div: HTMLDivElement) => div.getAttribute('data-track-load') === 'description_content',
+      )[0].innerHTML;
+
+      const problem = {
+        title: problemTitle,
+        difficulty: problemDifficulty,
+        description: problemDescription,
+      };
+
+      // sanitize problem data
+      const { title, difficulty, description } = sanitize(problem);
+
+      if (title !== 'Not found') {
+        // save current problem data to storage
+        getFromStorage('algoArchive', (result) => {
+          setInStorage('algoArchive', {
+            ...(result || {}),
+            currentProblem: {
+              title,
+              difficulty,
+              description,
+            },
+          });
+        });
+      }
+
+      sendResponse({
+        problemTitle: title,
+        problemDifficulty: difficulty,
+        problemDescription: description,
+      });
     } catch (error) {
       console.error('Error fetching problem data:', error);
       sendResponse({ error: 'Failed to fetch problem data' });
