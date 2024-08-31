@@ -39,6 +39,7 @@ module.exports = {
     }),
     new DotEnv({
       prefix: 'import.meta.env.',
+      safe: true,
     }),
   ],
   watch: true,
