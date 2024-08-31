@@ -1,4 +1,4 @@
-import { GITHUB_OAUTH_URL } from '@/constants';
+import { GITHUB_OAUTH_PATH, GITHUB_BASE_URL } from '@/constants';
 import { attachListener, getFromStorage, removeFromStorage } from '@/utils';
 import { UserSettings } from '@/types';
 
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (signin)
         attachListener(signin, 'click', () => {
           // Open a new tab to start the OAuth flow
-          chrome.tabs.create({ url: GITHUB_OAUTH_URL });
+          chrome.tabs.create({ url: GITHUB_BASE_URL + '/' + GITHUB_OAUTH_PATH });
         });
     }
   });
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
       signin.style.display = 'block';
       attachListener(signin, 'click', () => {
         // Open a new tab to start the OAuth flow
-        chrome.tabs.create({ url: GITHUB_OAUTH_URL });
+        chrome.tabs.create({ url: GITHUB_BASE_URL + '/' + GITHUB_OAUTH_PATH });
       });
     }
   });

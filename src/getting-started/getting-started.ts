@@ -1,6 +1,13 @@
-import { ApiClient, getFromStorage, setInStorage, attachListener } from '@/utils';
-import { GITHUB_API_BASE_URL } from '@/constants';
-import { UserSettings, Repo } from '@/types';
+import {
+  ApiClient,
+  getFromStorage,
+  setInStorage,
+  attachListener,
+  findLastLeetCodeTab,
+} from '@/utils';
+import { GITHUB_API_BASE_URL, GITHUB_BASE_URL, GITHUB_APP_INSTALL_PATH } from '@/constants';
+import { UserSettings, Repo, InstallationsResponse } from '@/types';
+import { ReposResponse } from '@/types/github';
 
 document.addEventListener('DOMContentLoaded', () => {
   const selectRepoBtn = document.getElementById('select-repo-btn')! as HTMLButtonElement;
@@ -11,17 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const useRepoBtn = document.getElementById('use-repo-btn')! as HTMLButtonElement;
   const newRepoName = document.getElementById('new-repo-name')! as HTMLInputElement;
   const createUseRepoBtn = document.getElementById('create-use-repo-btn')! as HTMLButtonElement;
+  const noFoundRepos = document.getElementById('no-found-repos')! as HTMLParagraphElement;
 
   const apiClient = new ApiClient({ baseUrl: GITHUB_API_BASE_URL });
 
   attachListener(selectRepoBtn, 'click', () => {
     repoSelection.classList.remove('hidden');
     createRepo.classList.add('hidden');
+    noFoundRepos.classList.remove('hidden');
+    noFoundRepos.innerHTML = `If you can't see the repository you're looking for, you can configure the github app installation in <a href="${GITHUB_BASE_URL}/${GITHUB_APP_INSTALL_PATH}" target="_blank" style="color: #007bff;">GitHub</a>.`;
   });
 
   attachListener(createRepoBtn, 'click', () => {
     createRepo.classList.remove('hidden');
     repoSelection.classList.add('hidden');
+    noFoundRepos.classList.add('hidden');
   });
 
   getFromStorage<UserSettings>('algoArchive', (result) => {
@@ -49,6 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
           alert(`Now using repository: ${selectedRepoName}`);
           // close current tab and open the popup
           window.close();
+          findLastLeetCodeTab().then((leetCodeTab) => {
+            if (leetCodeTab?.id) {
+              chrome.tabs.update(leetCodeTab.id, { active: true });
+            } else {
+              chrome.tabs.create({ url: 'https://leetcode.com/problems/two-sum' });
+            }
+          });
           repoSelection.classList.add('hidden');
         },
       );
@@ -86,11 +104,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   async function fetchRepositories(accessToken: string) {
-    const repos = await apiClient.get<Repo[]>('user/repos', {
+    const res = await apiClient.get<InstallationsResponse>('user/installations', {
       headers: {
-        Authorization: `token ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     });
+
+    let repos: Repo[] = [];
+
+    for (const installation of res.installations) {
+      const installationReposRes = await apiClient.get<ReposResponse>(
+        `user/installations/${installation.id}/repositories`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+      repos = [...repos, ...installationReposRes.repositories];
+    }
 
     populateRepoDropdown(repos);
   }
