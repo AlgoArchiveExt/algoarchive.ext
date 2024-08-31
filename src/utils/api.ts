@@ -43,13 +43,7 @@ class ApiClient {
    * console.log(repos);
    */
   public async get<T>(endpoint: string, options?: RequestInit): Promise<T> {
-    return this.request<T>(endpoint, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      ...options,
-    });
+    return this.request<T>(endpoint, { method: 'GET', ...options });
   }
 
   /**
