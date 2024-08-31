@@ -5,4 +5,5 @@ declare interface ImportMeta {
 interface ImportMetaEnv {
   readonly GITHUB_CLIENT_ID: string;
   readonly GITHUB_CLIENT_SECRET: string;
+  readonly GITHUB_APP_ID: string;
 }
