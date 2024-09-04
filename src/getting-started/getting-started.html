@@ -5,32 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Getting Started - AlgoArchive</title>
     <link rel="stylesheet" href="getting-started.css" />
-    <link rel="shotcut icon" href="algo-archive.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="algo-archive.png" type="image/x-icon" />
   </head>
   <body>
-    <div class="container">
+    <header class="header">
+      <img src="algo-archive.png" alt="AlgoArchive Logo" class="logo" />
+    </header>
+    <main class="container">
       <h1 class="title">Getting Started with AlgoArchive</h1>
-      <p>Welcome to the AlgoArchive extension! Choose an option below to get started:</p>
+      <p class="intro-text">
+        Welcome to the AlgoArchive extension! Choose an option below to get started:
+      </p>
       <div class="repo-options">
-        <button id="select-repo-btn">Select from Repositories</button>
-        <button id="create-repo-btn">Create Private Repository</button>
+        <button id="select-repo-btn" class="btn">Select from Repositories</button>
+        <button id="create-repo-btn" class="btn">Create Private Repository</button>
       </div>
-      <div id="repo-selection" class="hidden">
+      <div id="repo-selection" class="repo-section" style="display: none">
         <label for="repo-select">Select Repository:</label>
-        <select id="repo-select">
+        <select id="repo-select" class="input-field">
           <option value="">--Select a repository--</option>
-          <!-- Options will be populated here -->
         </select>
-        <button id="use-repo-btn" class="hidden">Use Repository</button>
+        <button id="use-repo-btn" class="btn hidden" style="display: none">Use Repository</button>
         <p id="no-found-repos" class="hidden"></p>
       </div>
-      <div id="create-repo" class="hidden">
+      <div id="create-repo" class="repo-section" style="display: none">
         <label for="new-repo-name">New Repository Name:</label>
-        <input type="text" id="new-repo-name" placeholder="Enter repository name" />
-        <button id="create-use-repo-btn" class="hidden">Create and Use Repository</button>
+        <input
+          type="text"
+          id="new-repo-name"
+          placeholder="Enter repository name"
+          class="input-field"
+        />
+        <button id="create-use-repo-btn" class="btn hidden" style="display: none">
+          Create and Use Repository
+        </button>
       </div>
-      <p>If you need any help, refer to our documentation or contact support.</p>
-    </div>
+      <p class="help-text">
+        If you need any help, refer to our <a href="#">documentation</a> or
+        <a href="mailto:algoarchive.org@gmail.com">contact support</a> .
+      </p>
+    </main>
+    <footer class="footer">
+      <p>&copy; 2024 AlgoArchive. All rights reserved.</p>
+    </footer>
     <script src="getting-started.js"></script>
   </body>
 </html>

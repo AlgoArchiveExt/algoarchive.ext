@@ -1,94 +1,187 @@
+/* Global styles */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
+/* Color palette */
+:root {
+  --background-light: #fffbf5;
+  --background-dark: #1c1c1c;
+  --text-dark: #333;
+  --text-light: #eeeeee;
+  --button-bg: #ef9920;
+  --button-bg-hover: #f0e6d6;
+  --container-bg: #ffffff;
+  --header-bg: #f0e6d6;
+  --footer-bg: #f0e6d6;
+  --input-bg: #ffffff;
+  --input-border: #ccc;
+}
+
+/* Base styles */
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #fff;
+  font-family: 'Lexend', sans-serif;
+  color: var(--text-dark);
   margin: 0;
   padding: 0;
-  background-color: #2b2118;
+  background-color: var(--background-light);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.header {
+  padding: 20px;
+  text-align: center;
+  background-color: var(--header-bg);
+}
+
+.logo {
+  max-width: 150px;
 }
 
 .container {
   max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #3c2e22;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin: 40px auto;
+  padding: 30px;
+  background-color: var(--container-bg);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  flex: 1; /* Allows the container to expand and push the footer to the bottom */
 }
 
 .title {
-  color: #ef9920;
-  text-align: center;
+  color: var(--button-bg);
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.intro-text {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: var(--text-dark);
 }
 
 .repo-options {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.repo-section {
   margin-bottom: 20px;
-}
-
-button {
-  background-color: #ef9920;
-  color: #2b2118;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #d88a1c;
-}
-
-.repo-selection,
-#create-repo {
-  margin-bottom: 20px;
+  text-align: left;
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
-  color: #ef9920;
+  margin-bottom: 10px;
+  color: var(--button-bg);
+  font-size: 16px;
 }
 
-select,
-input[type='text'] {
+.input-field {
   width: 100%;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ef9920;
+  border: 1px solid var(--input-border);
   border-radius: 5px;
-  background-color: #2b2118;
-  color: #fff;
+  background-color: var(--input-bg);
+  color: var(--text-dark);
+  margin-bottom: 20px;
 }
 
-.hidden {
-  display: none;
+.btn {
+  background-color: var(--button-bg);
+  color: var(--input-bg);
+  border: none;
+  padding: 12px 24px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  display: inline-block;
 }
 
-#use-repo-btn,
-#create-use-repo-btn {
-  margin-top: 10px;
-  background-color: #4a3827;
-  color: #ef9920;
+.btn:hover {
+  background-color: var(--button-bg-hover);
+  color: var(--text-dark);
 }
 
-#use-repo-btn:hover,
-#create-use-repo-btn:hover {
-  background-color: #5c4632;
+.help-text {
+  font-size: 16px;
+  margin-top: auto;
+  color: var(--text-dark);
 }
 
-/* Add some hover effects to improve interactivity */
-select:hover,
-input[type='text']:hover {
-  border-color: #d88a1c;
+.help-text a {
+  color: var(--button-bg);
+  text-decoration: none;
 }
 
-select:focus,
-input[type='text']:focus {
-  outline: none;
-  border-color: #d88a1c;
-  box-shadow: 0 0 5px rgba(239, 153, 32, 0.5);
+/* Footer at the bottom */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: var(--footer-bg);
+  margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .repo-options {
+    flex-direction: column;
+  }
+
+  .btn {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  body {
+    background-color: var(--background-light);
+    color: var(--text-dark);
+  }
+
+  .header {
+    background-color: var(--header-bg);
+  }
+
+  .container {
+    background-color: var(--container-bg);
+    color: var(--text-dark);
+  }
+
+  .input-field {
+    background-color: var(--input-bg);
+    color: var(--text-dark);
+    border: 1px solid var(--input-border);
+  }
+
+  .btn {
+    background-color: var(--button-bg);
+    color: var(--input-bg);
+  }
+
+  .btn:hover {
+    background-color: var(--button-bg-hover);
+    color: var(--text-dark);
+  }
+
+  .help-text {
+    color: var(--text-dark);
+  }
+
+  .footer {
+    background-color: var(--footer-bg);
+  }
+
+  .footer p {
+    color: var(--text-dark);
+  }
 }
