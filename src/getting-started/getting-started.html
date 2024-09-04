@@ -20,21 +20,30 @@
         <button id="select-repo-btn" class="btn">Select from Repositories</button>
         <button id="create-repo-btn" class="btn">Create Private Repository</button>
       </div>
-      <div id="repo-selection" class="hidden repo-section">
+      <div id="repo-selection" class="repo-section" style="display: none">
         <label for="repo-select">Select Repository:</label>
         <select id="repo-select" class="input-field">
           <option value="">--Select a repository--</option>
         </select>
-        <button id="use-repo-btn" class="btn hidden">Use Repository</button>
+        <button id="use-repo-btn" class="btn hidden" style="display: none">Use Repository</button>
         <p id="no-found-repos" class="hidden"></p>
       </div>
-      <div id="create-repo" class="hidden repo-section">
+      <div id="create-repo" class="repo-section" style="display: none">
         <label for="new-repo-name">New Repository Name:</label>
-        <input type="text" id="new-repo-name" placeholder="Enter repository name" class="input-field" />
-        <button id="create-use-repo-btn" class="btn hidden">Create and Use Repository</button>
+        <input
+          type="text"
+          id="new-repo-name"
+          placeholder="Enter repository name"
+          class="input-field"
+        />
+        <button id="create-use-repo-btn" class="btn hidden" style="display: none">
+          Create and Use Repository
+        </button>
       </div>
-      <p class="help-text">If you need any help, refer to our <a href="#">documentation</a> or <a href="mailto:algoarchive.org@gmail.com">contact support</a>
-        .</p>
+      <p class="help-text">
+        If you need any help, refer to our <a href="#">documentation</a> or
+        <a href="mailto:algoarchive.org@gmail.com">contact support</a> .
+      </p>
     </main>
     <footer class="footer">
       <p>&copy; 2024 AlgoArchive. All rights reserved.</p>

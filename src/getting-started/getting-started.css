@@ -6,7 +6,7 @@
   --background-light: #fffbf5;
   --background-dark: #1c1c1c;
   --text-dark: #333;
-  --text-light: #EEEEEE;
+  --text-light: #eeeeee;
   --button-bg: #ef9920;
   --button-bg-hover: #f0e6d6;
   --container-bg: #ffffff;
@@ -109,7 +109,7 @@ label {
 
 .help-text {
   font-size: 16px;
-  margin-top: 20px;
+  margin-top: auto;
   color: var(--text-dark);
 }
 

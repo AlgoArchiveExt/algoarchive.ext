@@ -23,15 +23,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const apiClient = new ApiClient({ baseUrl: GITHUB_API_BASE_URL });
 
   attachListener(selectRepoBtn, 'click', () => {
-    repoSelection.classList.remove('hidden');
-    createRepo.classList.add('hidden');
+    repoSelection.style.display = 'block';
+    createRepo.style.display = 'none';
     noFoundRepos.classList.remove('hidden');
     noFoundRepos.innerHTML = `If you can't see the repository you're looking for, you can configure the github app installation in <a href="${GITHUB_BASE_URL}/${GITHUB_APP_INSTALL_PATH}" target="_blank" style="color: #007bff;">GitHub</a>.`;
   });
 
   attachListener(createRepoBtn, 'click', () => {
-    createRepo.classList.remove('hidden');
-    repoSelection.classList.add('hidden');
+    createRepo.style.display = 'block';
+    repoSelection.style.display = 'none';
     noFoundRepos.classList.add('hidden');
   });
 
@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     attachListener(repoSelect, 'change', () => {
       const selectedRepoId = repoSelect.value;
       if (selectedRepoId) {
-        useRepoBtn.classList.remove('hidden');
+        useRepoBtn.style.display = 'block';
       } else {
-        useRepoBtn.classList.add('hidden');
+        useRepoBtn.style.display = 'none';
       }
     });
 
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
               chrome.tabs.create({ url: 'https://leetcode.com/problems/two-sum' });
             }
           });
-          repoSelection.classList.add('hidden');
+          repoSelection.style.display = 'none';
         },
       );
     });
@@ -77,9 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   attachListener(newRepoName, 'input', () => {
     if (newRepoName.value.trim()) {
-      createUseRepoBtn.classList.remove('hidden');
+      createUseRepoBtn.style.display = 'block';
     } else {
-      createUseRepoBtn.classList.add('hidden');
+      createUseRepoBtn.style.display = 'none';
     }
   });
 
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedRepo: newRepoNameValue,
           },
           () => {
-            createRepo.classList.add('hidden');
+            createRepo.style.display = 'none';
           },
         );
       });
