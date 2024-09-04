@@ -14,10 +14,14 @@
   "content_scripts": [
     {
       "matches": ["https://leetcode.com/*"],
-      "js": ["content.js"]
+      "js": ["scraper.js"]
+    },
+    {
+      "matches": ["https://algoarchive.org/*"],
+      "js": ["storage-handler.js"]
     }
   ],
-  "permissions": ["storage", "activeTab", "tabs", "scripting", "webRequest"],
+  "permissions": ["storage", "activeTab", "tabs", "webRequest"],
   "host_permissions": [
     "https://github.com/*",
     "https://api.github.com/*",
