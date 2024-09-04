@@ -23,7 +23,7 @@ chrome.webRequest.onBeforeRequest.addListener(
             getFromStorage<UserSettings>('algoArchive', async (result) => {
               if (result?.githubAccessToken && result?.selectedRepo) {
                 try {
-                  await apiClient.post(`api/v1/solutions/commits`, {
+                  await apiClient.post(`v1/solutions/commits`, {
                     user_access_token: result.githubAccessToken,
                     user: {
                       owner: result.owner,
