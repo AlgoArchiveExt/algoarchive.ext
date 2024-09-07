@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "AlgoArchive",
-  "description": "Base Level Extension",
-  "version": "1.0",
+  "description": "AlgoArchive is a browser extension that automatically saves your LeetCode submissions to your GitHub account.",
+  "version": "1.0.1",
   "action": {
     "default_popup": "popup.html",
     "default_icon": "algo-archive.png"
