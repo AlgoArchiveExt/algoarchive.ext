@@ -47,10 +47,10 @@ jobs:
         run: npm install -g chrome-webstore-upload-cli
 
       - name: Upload to Chrome Web Store
-        run: |
-          chrome-webstore-upload \
-            --source chrome-extension.zip \
-            --extension-id $EXTENSION_ID \
-            --client-id ${{ secrets.GOOGLE_CLIENT_ID }} \
-            --client-secret ${{ secrets.GOOGLE_CLIENT_SECRET }} \
+        run: |-
+          chrome-webstore-upload publish \\
+            --source chrome-extension.zip \\
+            --extension-id $EXTENSION_ID \\
+            --client-id ${{ secrets.GOOGLE_CLIENT_ID }} \\
+            --client-secret ${{ secrets.GOOGLE_CLIENT_SECRET }} \\
             --refresh-token ${{ secrets.GOOGLE_REFRESH_TOKEN }}
