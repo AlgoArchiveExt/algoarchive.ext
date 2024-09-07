@@ -43,7 +43,14 @@ jobs:
         with:
           name: chrome-extension
 
+      - name: Unzip extension
+        run: unzip chrome-extension.zip -d extension
+
+      - name: Move zip file to working directory
+        run: mv chrome-extension.zip extension/
+
       - run: npx chrome-webstore-upload-cli@3
+        working-directory: extension
         env:
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
           CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
