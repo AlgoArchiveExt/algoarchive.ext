@@ -20,12 +20,12 @@ jobs:
           npm install
           npm run build
       - name: Zip extension
-        run: zip -r chrome-extension-${{ github.sha }}.zip dist
+        run: zip -r chrome-extension.zip dist
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: chrome-extension
-          path: chrome-extension-${{ github.sha }}.zip
+          path: chrome-extension.zip
 
   publish:
     name: Publish to Chrome Web Store
@@ -41,7 +41,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
-          name: chrome-extension-${{ github.sha }}.zip
+          name: chrome-extension.zip
 
       - name: Install webstore cli
         run: npm install -g chrome-webstore-upload-cli
@@ -49,7 +49,7 @@ jobs:
       - name: Upload to Chrome Web Store
         run: |
           chrome-webstore-upload \
-            --source chrome-extension-${{ github.sha }}.zip \
+            --source chrome-extension.zip \
             --extension-id $EXTENSION_ID \
             --client-id ${{ secrets.GOOGLE_CLIENT_ID }} \
             --client-secret ${{ secrets.GOOGLE_CLIENT_SECRET }} \
