@@ -48,7 +48,7 @@ jobs:
 
       - name: Upload to Chrome Web Store
         run: |-
-          chrome-webstore-upload \\
+          chrome-webstore-upload upload \\
             --source chrome-extension.zip \\
             --extension-id $EXTENSION_ID \\
             --client-id ${{ secrets.GOOGLE_CLIENT_ID }} \\
