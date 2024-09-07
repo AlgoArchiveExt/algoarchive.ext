@@ -19,15 +19,30 @@ jobs:
           echo "${{ secrets.ENV }}" > .env
           npm install
           npm run build
-      - name: Zip extension
-        run: zip -r chrome-extension.zip dist
-      - name: Upload Artifact
+      - name: Generate firefox manifest
+        run: |
+          jq '.background = {"scripts": ["service-worker.js"]}' dist/manifest.json > manifest.firefox.json
+      - name: Zip Chrome extension
+        run: |
+          cd dist
+          zip -r ../chrome-extension.zip *
+      - name: Zip Firefox extension
+        run: |
+          mv manifest.firefox.json dist/manifest.json
+          cd dist
+          zip -r ../firefox-extension.zip *
+      - name: Upload Chrome Artifact
         uses: actions/upload-artifact@v4
         with:
           name: chrome-extension
           path: chrome-extension.zip
+      - name: Upload Firefox Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firefox-extension
+          path: firefox-extension.zip
 
-  publish:
+  publish-to-chrome:
     name: Publish to Chrome Web Store
     runs-on: ubuntu-latest
     needs: build
@@ -47,12 +62,40 @@ jobs:
         run: unzip chrome-extension.zip -d extension
 
       - name: Move zip file to working directory
-        run: mv chrome-extension.zip extension/dist
+        run: mv chrome-extension.zip extension
 
-      - run: npx chrome-webstore-upload-cli@3
-        working-directory: extension/dist
+      - name: Publish to Chrome Web Store
+        run: npx chrome-webstore-upload-cli@3
+        working-directory: extension
         env:
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
           CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+
+  publish-to-firefox:
+    name: Publish to Firefox Add-ons
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+      WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: firefox-extension
+
+      - name: Unzip extension
+        run: unzip firefox-extension.zip -d extension
+
+      - name: Move zip file to working directory
+        run: mv chrome-extension.zip extension
+
+      - name: Sign and publish to Firefox Add-ons
+        run: npx web-ext@8 sign --channel=listed --api-key=$WEB_EXT_API_KEY --api-secret=$WEB_EXT_API_SECRET
+        working-directory: extension
