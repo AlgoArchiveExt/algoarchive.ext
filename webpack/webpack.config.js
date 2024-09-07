@@ -55,5 +55,4 @@ module.exports = {
       safe: true,
     }),
   ],
-  watch: true,
 };
