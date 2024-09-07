@@ -16,6 +16,7 @@ jobs:
           node-version: '18'
       - name: Install dependencies and build
         run: |
+          echo "${{ secrets.ENV }}" > .env
           npm install
           npm run build
       - name: Zip extension
