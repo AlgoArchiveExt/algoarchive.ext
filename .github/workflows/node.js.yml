@@ -23,7 +23,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Install Dependencies
-        run: npm install
-      - name: Build extension
-        run: npm run build
+      - name: Install Dependencies and Build
+        run: |
+          echo "${{ secrets.ENV }}" > .env
+          npm install
+          npm run build
