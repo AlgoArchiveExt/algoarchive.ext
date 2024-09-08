@@ -6,12 +6,12 @@ import { UserSettings } from '@/types';
 document.addEventListener('DOMContentLoaded', () => {
   const signin = document.getElementById('github-signin'); // Use id for the button
   const deleteAuth = document.getElementById('delete-auth')!;
+  const currentUser = document.getElementById('current-user')!;
   const problemDetails = document.getElementsByClassName('problem-details')[0]! as HTMLElement;
   const problemName = document.getElementById('problem-name')!;
   const problemDifficulty = document.getElementById('problem-difficulty')!;
-  const selectedRepoClass = document.getElementsByClassName('selected-repo')[0]! as HTMLElement;
   const selectedRepo = document.getElementById('selected-repo')!;
-  const selectRepoButton = document.getElementById('select-repo-button')!;
+  const changeRepoButton = document.getElementById('change-repo-button')! as HTMLButtonElement;
 
   getFromStorage<UserSettings>('algoArchive', (result) => {
     if (result?.githubAccessToken) {
@@ -65,8 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
     deleteAuthorizationCode();
     // hide the delete button
     deleteAuth.style.display = 'none';
-    selectedRepoClass.style.display = 'none';
-    selectRepoButton.style.display = 'none';
+    currentUser.textContent = 'N/A';
+    // selectedRepoClass.style.display = 'none';
+    selectedRepo.textContent = 'N/A';
+    changeRepoButton.textContent = 'Select a repository';
+    changeRepoButton.disabled = true;
     // show the sign in button
     const signin = document.getElementById('github-signin');
     if (signin) {
@@ -79,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Add event listener to select a repository, redirect to the getting-started page
-  selectRepoButton.addEventListener('click', () => {
+  changeRepoButton.addEventListener('click', () => {
     chrome.tabs.create({ url: 'getting-started.html' });
   });
 
@@ -99,17 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteAuth = document.getElementById('delete-auth');
     if (deleteAuth) deleteAuth.style.display = 'block';
 
-    if (result?.selectedRepo) {
-      selectRepoButton.style.display = 'none';
-      selectedRepoClass.style.display = 'block';
-      selectedRepoClass.style.cursor = 'pointer';
-      selectedRepoClass.addEventListener('click', () => {
-        chrome.tabs.create({ url: 'getting-started.html' });
-      });
-      selectedRepo.textContent = result.selectedRepo;
+    currentUser.textContent = result?.currentUser || 'N/A';
+
+    if (result?.selectedRepoFullName || result?.selectedRepo) {
+      changeRepoButton.textContent = 'Change repository';
+      changeRepoButton.disabled = false;
+      // selectedRepoClass.style.display = 'block';
+      // selectedRepoClass.style.cursor = 'pointer';
+      // selectedRepoClass.addEventListener('click', () => {
+      //   chrome.tabs.create({ url: 'getting-started.html' });
+      // });
+      selectedRepo.textContent = result.selectedRepoFullName || result.selectedRepo || 'N/A';
     } else {
-      selectRepoButton.style.display = 'block';
-      selectedRepo.style.display = 'none';
+      changeRepoButton.textContent = 'Select a repository';
+      changeRepoButton.disabled = false;
+      selectedRepo.textContent = 'N/A';
     }
   }
 });

@@ -3,32 +3,92 @@
   <head>
     <title>Hello World</title>
     <script defer src="popup.js"></script>
-    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
     <div class="header">
-      <img class="logo" src="algo-archive.png" alt="AlgoArchive Logo" height="80px" width="80px">
-      <h3 class="selected-repo" style="display: none;">
-        Using repository: <span id="selected-repo"></span>
-      </h3>
-      <button id="select-repo-button" style="display: none;">Select Repository</button>
-    <div class="container">
-      <div class="problem-details" style="display: none;">
+      <a href="https://algoarchive.org" class="logo-link" target="_blank" rel="noopener noreferrer">
+        <img class="logo" src="algoarchive.png" alt="AlgoArchive Logo" height="80px" width="80px" />
+        <span class="title">
+          <span class="title-bold">Algo</span><span class="title-regular">Archive</span>
+        </span>
+      </a>
+    </div>
+    <div class="grid-container">
+      <div class="user">
+        <div class="row">
+          <div class="column">
+            <span class="current-user column-label">Signed in as:</span>
+            <span class="column-value" id="current-user">N/A</span>
+          </div>
+          <div class="button-container">
+            <button class="auth-button row-button" id="github-signin">GitHub Sign in</button>
+            <button class="auth-button row-button" id="delete-auth" style="display: none">
+              Sign Out
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="repository">
+        <div class="row">
+          <div class="column">
+            <span class="selected-repo column-label">Using repository:</span>
+            <span class="column-value" id="selected-repo">N/A</span>
+          </div>
+          <button class="row-button" id="change-repo-button" disabled>Change Repository</button>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="container">
+      <div class="problem-details" style="display: none">
         <h2 id="problem-name"></h2>
         <p id="problem-difficulty"></p>
       </div>
-      <div class="button-container">
-        <button class="auth-button" id="github-signin">GitHub Sign in</button>
-        <button class="auth-button" id="delete-auth" style="display: none;">Delete Auth</button>
+    </div> -->
+    <div class="stats">
+      <div class="problem-details" style="display: none">
+        <div class="column">
+          <span id="problem-name"></span>
+          <span id="problem-difficulty"></span>
+        </div>
+      </div>
+      <div class="problems-solved">
+        <span class="solved-text">Problems Solved: </span>
+        <span class="solved-count">0</span>
+        <!-- Number of problems solved -->
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="column">
+            <h2 class="easy-text">Easy</h2>
+            <p class="count">12</p>
+            <!-- Number of problems solved -->
+          </div>
+          <div class="divider"></div>
+          <!-- Divider between columns -->
+          <div class="column">
+            <h2 class="medium-text">Medium</h2>
+            <p class="count">8</p>
+            <!-- Number of problems solved -->
+          </div>
+          <div class="divider"></div>
+          <!-- Divider between columns -->
+          <div class="column">
+            <h2 class="hard-text">Hard</h2>
+            <p class="count">5</p>
+            <!-- Number of problems solved -->
+          </div>
+        </div>
       </div>
     </div>
     <footer class="footer">
       <span>Connect with us:</span>
       <a href="https://github.com/orgs/AlgoArchiveExt" target="_blank" class="footer-link">
-        <img src="github.svg" alt="Visit Us" class="footer-icon">
+        <img src="github.svg" alt="Visit Us" class="footer-icon" />
       </a>
-      <a href="https://algoarchive.org/" target="_blank" class="footer-link">
-        <img src="web.svg" alt="Visit Us" class="footer-icon">
+      <a href="https://discord.gg/tSyBpBN8wR" target="_blank" class="footer-link">
+        <img src="discord.svg" alt="Visit Us" class="footer-icon" />
       </a>
     </footer>
   </body>
