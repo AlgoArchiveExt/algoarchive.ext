@@ -50,12 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
     attachListener(useRepoBtn, 'click', () => {
       const selectedRepoName = repoSelect.options[repoSelect.selectedIndex].textContent;
       const owner = repoSelect.options[repoSelect.selectedIndex].getAttribute('owner');
-
+      const selectedRepoFullName =
+        repoSelect.options[repoSelect.selectedIndex].getAttribute('full_name');
       setInStorage(
         'algoArchive',
         {
           ...result,
           selectedRepo: selectedRepoName,
+          selectedRepoFullName: selectedRepoFullName,
           owner: owner,
         },
         () => {
@@ -125,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
       );
       repos = [...repos, ...installationReposRes.repositories];
     }
-
     populateRepoDropdown(repos);
   }
 
@@ -135,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
       option.value = repo.id.toString();
       option.textContent = repo.name;
       option.setAttribute('owner', repo.owner.login);
+      option.setAttribute('full_name', repo.full_name);
       repoSelect.appendChild(option);
     });
   }

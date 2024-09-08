@@ -12,6 +12,13 @@ export interface Repo {
   // Add other relevant fields if needed
 }
 
+export interface User {
+  id: number;
+  login: string;
+  avatar_url: string;
+  // Add other relevant fields if needed
+}
+
 export interface AccessTokenResponse {
   access_token: string;
   token_type: string;
