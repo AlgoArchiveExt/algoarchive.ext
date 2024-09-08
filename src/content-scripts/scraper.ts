@@ -1,3 +1,4 @@
+import { Problem } from '@/types/leetcode';
 import { getFromStorage, sanitize, setInStorage } from '@/utils';
 
 // Inform the service worker that this tab should have a page-action.
@@ -33,14 +34,23 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         (div: HTMLDivElement) => div.getAttribute('data-track-load') === 'description_content',
       )[0].innerHTML;
 
-      const problem = {
+      const problemLink = window.location.href;
+      // get problem id by regex, \/problems\/([^\/]+)\/(?:description\/)?
+      const problemName = problemLink.match(/\/problems\/([^\/]+)\/(?:description\/)?/)?.[1] || '';
+      const problemId = Array.from(document.querySelectorAll('a')).find((a: HTMLAnchorElement) =>
+        a.href.includes('/problems/' + problemName + '/'),
+      )?.textContent;
+
+      const problem: Problem = {
         title: problemTitle,
         difficulty: problemDifficulty,
         description: problemDescription,
+        link: problemLink,
+        id: problemId || undefined,
       };
 
       // sanitize problem data
-      const { title, difficulty, description } = sanitize(problem);
+      const { title, difficulty, description, id } = sanitize(problem);
 
       if (title !== 'Not found') {
         // save current problem data to storage
@@ -51,6 +61,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
               title,
               difficulty,
               description,
+              link: problemLink,
+              id: id,
             },
           });
         });
@@ -60,6 +72,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         problemTitle: title,
         problemDifficulty: difficulty,
         problemDescription: description,
+        problemLink,
+        problemId: id,
       });
     } catch (error) {
       console.error('Error fetching problem data:', error);

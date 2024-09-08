@@ -8,4 +8,6 @@ export interface Problem {
   title: string;
   description: string;
   difficulty: string;
+  link?: string;
+  id?: string;
 }

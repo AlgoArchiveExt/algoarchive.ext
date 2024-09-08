@@ -36,6 +36,8 @@ chrome.webRequest.onBeforeRequest.addListener(
                       code: submission.typed_code,
                       language: submission.lang,
                       difficulty: response?.problemDifficulty || result?.currentProblem?.difficulty,
+                      problem_id: response?.problemId || result?.currentProblem?.id,
+                      problem_link: response?.problemLink || result?.currentProblem?.link,
                     },
                   });
 
