@@ -5,8 +5,8 @@ import {
   GITHUB_INSTALLATIONS_PATH,
   GITHUB_APP_INSTALL_PATH,
 } from '@/constants';
-import { findLastLeetCodeTab, setInStorage, ApiClient } from '@/utils';
-import { AccessTokenResponse, InstallationsResponse } from '@/types';
+import { findLastLeetCodeTab, setInStorage, ApiClient, getFromStorage } from '@/utils';
+import { AccessTokenResponse, InstallationsResponse, User, UserSettings } from '@/types';
 
 async function handleAuthCode(code: string, tabId: number) {
   const apiClient = new ApiClient({ baseUrl: GITHUB_BASE_URL });
@@ -41,6 +41,21 @@ async function checkInstallations(accessToken: string, tabId: number) {
         Accept: 'application/vnd.github.v3+json',
         Authorization: `Bearer ${accessToken}`,
       },
+    });
+
+    // get current user
+    const currentUser = await apiClient.get<User>('user', {
+      headers: {
+        Accept: 'application/vnd.github.v3+json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    getFromStorage<UserSettings>('algoArchive', (result) => {
+      setInStorage('algoArchive', {
+        ...result,
+        currentUser: currentUser.login,
+      });
     });
 
     if (installations.total_count === 0) {
