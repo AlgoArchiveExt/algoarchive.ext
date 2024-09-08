@@ -38,6 +38,12 @@ chrome.webRequest.onBeforeRequest.addListener(
                       difficulty: response?.problemDifficulty || result?.currentProblem?.difficulty,
                     },
                   });
+
+                  chrome.tabs.sendMessage(tabs[0].id!, {
+                    from: 'service-worker',
+                    subject: 'all-count',
+                  });
+
                   console.log('Solution sent to server successfully');
                 } catch (error) {
                   console.error('Failed to send solution to server:', error);
