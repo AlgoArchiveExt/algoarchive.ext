@@ -61,7 +61,15 @@ document.addEventListener('DOMContentLoaded', () => {
           owner: owner,
         },
         () => {
+          chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            if (tabs[0] && tabs[0].url) {
+              chrome.runtime.sendMessage({ subject: 'all-count' }, async (response) => {
+                console.log('Response:', response);
+              });
+            }
+          });
           alert(`Now using repository: ${selectedRepoName}`);
+
           // close current tab and open the popup
           findLastLeetCodeTab().then((leetCodeTab) => {
             window.close();
