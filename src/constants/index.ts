@@ -13,3 +13,6 @@ export const GITHUB_ACCESS_TOKEN_PATH = `login/oauth/access_token?client_id=${GI
 
 // AlgoArchive API
 export const API_BASE_URL = 'https://api.algoarchive.org';
+
+// Cache
+export const CACHE_DURATION_MS = 30 * 60 * 1000; // 30 minutes

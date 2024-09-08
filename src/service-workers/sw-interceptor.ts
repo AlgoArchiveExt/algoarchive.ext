@@ -35,6 +35,7 @@ chrome.webRequest.onBeforeRequest.addListener(
                         response?.problemDescription || result?.currentProblem?.description,
                       code: submission.typed_code,
                       language: submission.lang,
+                      difficulty: response?.problemDifficulty || result?.currentProblem?.difficulty,
                     },
                   });
                   console.log('Solution sent to server successfully');

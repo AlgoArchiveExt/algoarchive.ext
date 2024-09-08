@@ -7,4 +7,14 @@ export interface UserSettings {
   currentProblem?: Problem;
   owner?: string;
   currentUser?: string;
+  stats?: Stats;
+}
+
+export interface Stats {
+  total: number;
+  easy: number;
+  medium: number;
+  hard: number;
+  lastFetchTime?: number;
+  selectedRepoFullName?: string;
 }

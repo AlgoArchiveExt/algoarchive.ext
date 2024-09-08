@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const problemDifficulty = document.getElementById('problem-difficulty')!;
   const selectedRepo = document.getElementById('selected-repo')!;
   const changeRepoButton = document.getElementById('change-repo-button')! as HTMLButtonElement;
+  const solvedCount = document.getElementsByClassName('solved-count')[0]! as HTMLElement;
+  const [easy, medium, hard] = document.getElementsByClassName('difficulty');
 
   getFromStorage<UserSettings>('algoArchive', (result) => {
     if (result?.githubAccessToken) {
@@ -70,6 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
     selectedRepo.textContent = 'N/A';
     changeRepoButton.textContent = 'Select a repository';
     changeRepoButton.disabled = true;
+
+    solvedCount.textContent = 'N/A';
+    easy.textContent = 'N/A';
+    medium.textContent = 'N/A';
+    hard.textContent = 'N/A';
     // show the sign in button
     const signin = document.getElementById('github-signin');
     if (signin) {
@@ -117,6 +124,45 @@ document.addEventListener('DOMContentLoaded', () => {
       changeRepoButton.textContent = 'Select a repository';
       changeRepoButton.disabled = false;
       selectedRepo.textContent = 'N/A';
+    }
+
+    if (
+      result?.githubAccessToken &&
+      result.selectedRepoFullName &&
+      result.stats &&
+      result.stats.total
+    ) {
+      console.log('USING CACHED DATA');
+      solvedCount.textContent = result.stats.total?.toString() || 'N/A';
+      easy.textContent = result.stats.easy?.toString() || 'N/A';
+      medium.textContent = result.stats.medium?.toString() || 'N/A';
+      hard.textContent = result.stats.hard?.toString() || 'N/A';
+    } else {
+      console.log('FETCHING NEW DATA');
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs[0] && tabs[0].url) {
+          chrome.runtime.sendMessage({ subject: 'all-count' }, async (response) => {
+            if (response?.success) {
+              getFromStorage<UserSettings>('algoArchive', (result) => {
+                while (true) {
+                  if (result?.stats?.total) {
+                    solvedCount.textContent = result.stats.total.toString();
+                    easy.textContent = result.stats.easy.toString() || 'N/A';
+                    medium.textContent = result.stats.medium.toString() || 'N/A';
+                    hard.textContent = result.stats.hard.toString() || 'N/A';
+                    break;
+                  }
+                }
+              });
+            } else {
+              solvedCount.textContent = 'N/A';
+              easy.textContent = 'N/A';
+              medium.textContent = 'N/A';
+              hard.textContent = 'N/A';
+            }
+          });
+        }
+      });
     }
   }
 });
