@@ -22,6 +22,7 @@ jobs:
       - name: Generate firefox manifest
         run: |
           jq '.background = {"scripts": ["service-worker.js"]}' dist/manifest.json > manifest.firefox.json
+          jq '.browser_specific_settings = {"gecko": {"id": "dev@algoarchive.org"}}' dist/manifest.json > manifest.firefox.json
       - name: Zip Chrome extension
         run: |
           cd dist

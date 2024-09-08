@@ -27,10 +27,5 @@
     "https://api.github.com/*",
     "https://example.com/*",
     "https://leetcode.com/*"
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "dev@algoarchive.org"
-    }
-  }
+  ]
 }
