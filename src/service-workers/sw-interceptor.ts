@@ -4,7 +4,6 @@ import { ApiClient, getFromStorage } from '@/utils';
 
 chrome.webRequest.onBeforeRequest.addListener(
   (details) => {
-    console.log('Request intercepted:', details);
     // request problem data from the content script
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs[0] && tabs[0].url && tabs[0].url.startsWith('https://leetcode.com/problems/')) {
@@ -19,7 +18,6 @@ chrome.webRequest.onBeforeRequest.addListener(
             // decode the payload
             const decodedPayload = payload ? new TextDecoder().decode(payload[0].bytes) : '';
             const submission = JSON.parse(decodedPayload) as LeetCodeSubmission;
-            console.log('Request payload:', submission);
             getFromStorage<UserSettings>('algoArchive', async (result) => {
               if (result?.githubAccessToken && result?.selectedRepo) {
                 try {

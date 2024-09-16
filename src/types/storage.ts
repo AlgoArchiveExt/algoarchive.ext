@@ -1,4 +1,5 @@
 import { Problem } from './leetcode';
+import { User } from './github';
 
 export interface UserSettings {
   githubAccessToken?: string;
@@ -6,7 +7,7 @@ export interface UserSettings {
   selectedRepoFullName?: string;
   currentProblem?: Problem;
   owner?: string;
-  currentUser?: string;
+  user?: User;
   stats?: Stats;
 }
 

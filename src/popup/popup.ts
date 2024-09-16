@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteAuth = document.getElementById('delete-auth');
     if (deleteAuth) deleteAuth.style.display = 'block';
 
-    currentUser.textContent = result?.currentUser || 'N/A';
+    currentUser.textContent = result?.user?.login || 'N/A';
 
     if (result?.selectedRepoFullName || result?.selectedRepo) {
       changeRepoButton.textContent = 'Change repository';

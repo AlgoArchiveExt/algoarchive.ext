@@ -26,8 +26,11 @@ async function handleAuthCode(code: string, tabId: number) {
   };
 
   // Store the code in chrome.storage instead of sending a message
-  setInStorage('algoArchive', algoArchiveData, () => {
-    console.log('Authorization code saved in storage');
+  getFromStorage<UserSettings>('algoArchive', (result) => {
+    setInStorage<UserSettings>('algoArchive', {
+      ...result,
+      ...algoArchiveData,
+    });
   });
 
   await checkInstallations(response.access_token, tabId);
@@ -41,21 +44,6 @@ async function checkInstallations(accessToken: string, tabId: number) {
         Accept: 'application/vnd.github.v3+json',
         Authorization: `Bearer ${accessToken}`,
       },
-    });
-
-    // get current user
-    const currentUser = await apiClient.get<User>('user', {
-      headers: {
-        Accept: 'application/vnd.github.v3+json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-
-    getFromStorage<UserSettings>('algoArchive', (result) => {
-      setInStorage('algoArchive', {
-        ...result,
-        currentUser: currentUser.login,
-      });
     });
 
     if (installations.total_count === 0) {
@@ -77,6 +65,23 @@ async function checkInstallations(accessToken: string, tabId: number) {
   } catch (error) {
     console.error('Error fetching installations:', error);
   }
+
+  // get current user
+  const currentUser = await apiClient.get<User>('user', {
+    headers: {
+      Accept: 'application/vnd.github.v3+json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  getFromStorage<UserSettings>('algoArchive', (result) => {
+    setInStorage<UserSettings>('algoArchive', {
+      ...result,
+      user: {
+        ...currentUser,
+      },
+    });
+  });
 }
 
 async function handleTabUpdate(
@@ -84,17 +89,12 @@ async function handleTabUpdate(
   changeInfo: chrome.tabs.TabChangeInfo,
   tab: chrome.tabs.Tab,
 ) {
-  console.log('Tab updated:', tabId, changeInfo, tab);
-
   if (changeInfo.status === 'complete' && tab.url?.startsWith('https://example.com/')) {
     const url = new URL(tab.url);
     const code = url.searchParams.get('code');
 
     //? Note: github auth token never expires, until the user revokes it
-    if (code) {
-      console.log('Authorization code found:', code);
-      await handleAuthCode(code, tabId);
-    }
+    if (code) await handleAuthCode(code, tabId);
   }
 }
 

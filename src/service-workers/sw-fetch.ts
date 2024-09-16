@@ -17,7 +17,6 @@ async function sendAsyncronously(sendResponse: (response: any) => void) {
 }
 
 chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-  console.log('Message received:', message, sender);
   if (message.subject === 'all-count') {
     sendAsyncronously(sendResponse);
     return true;
@@ -45,7 +44,6 @@ async function fetchSolutionsCount() {
 
       if (result?.githubAccessToken && result.selectedRepoFullName) {
         // Fetch the data
-        console.log('Fetching COUNT from API...');
         const response = await apiClient.get<AllSolutionsCount>(
           `v1/solutions/${result?.selectedRepoFullName}/count`,
           {
@@ -57,11 +55,11 @@ async function fetchSolutionsCount() {
 
         // Store the data in storage
         getFromStorage<UserSettings>('algoArchive', (result2) => {
-          setInStorage('algoArchive', {
+          setInStorage<UserSettings>('algoArchive', {
             ...result2,
             stats: {
-              ...result2?.stats,
-              total: response.solutions_count,
+              ...(result2?.stats || { easy: 0, medium: 0, hard: 0 }),
+              total: response.solutions_count || 0,
               lastFetchTime: now,
               selectedRepoFullName: result2?.selectedRepoFullName,
             },
@@ -106,8 +104,6 @@ async function fetchSolutionsCountByDifficulty() {
               },
             },
           );
-
-          console.log('Done fetching all difficulties:', response);
 
           // Store the data in storage
           getFromStorage<UserSettings>('algoArchive', (result2) => {
