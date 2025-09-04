@@ -12,7 +12,7 @@ export const GITHUB_APP_INSTALL_PATH = `apps/${GITHUB_APP_NAME}/installations/ne
 export const GITHUB_ACCESS_TOKEN_PATH = `login/oauth/access_token?client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}`;
 
 // AlgoArchive API
-export const API_BASE_URL = 'https://aay15g90sd.execute-api.us-east-1.amazonaws.com';
+export const API_BASE_URL = 'https://xtlqwyb5xj.execute-api.us-east-1.amazonaws.com';
 
 // Cache
 export const CACHE_DURATION_MS = 30 * 60 * 1000; // 30 minutes
